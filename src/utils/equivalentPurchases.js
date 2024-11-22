@@ -1,10 +1,19 @@
 
 
   export const EQUIVALENT_PURCHASES = [
+    { name: 'Private Space Rocket', price: 100000000, emoji: '🚀' },
+    { name: 'Private Sports Team', price: 2500000000, emoji: '⚽' },
+    { name: 'Mega Yacht', price: 500000000, emoji: '🛥️' },
+    { name: 'Private Hawaiian Island', price: 600000000, emoji: '🌴' },
+    { name: 'Famous Painting', price: 450000000, emoji: '🎨' },
+    { name: 'Luxury Hotel', price: 750000000, emoji: '🏨' },
+    { name: 'Movie Studio', price: 1000000000, emoji: '🎬' },
+    { name: 'Private Airport', price: 350000000, emoji: '✈️' },
+    { name: 'Superyacht Fleet', price: 2000000000, emoji: '⚓' },
+    { name: 'Private Mountain Resort', price: 800000000, emoji: '🏔️' },
     { name: 'Tesla Model 3', price: 40000, emoji: '🚗' },
     { name: 'MacBook Pro', price: 2500, emoji: '💻' },
     { name: 'iPhone 15 Pro', price: 999, emoji: '📱' },
-    { name: 'Netflix for Life', price: 20000, emoji: '🎬' },
     { name: 'Private Island', price: 5000000, emoji: '🏝️' },
     { name: 'Lamborghini', price: 500000, emoji: '🏎️' },
     { name: 'Luxury Yacht', price: 1000000, emoji: '🛥️' },
@@ -21,7 +30,6 @@
     { name: 'Professional Sock Organizer', price: 1500, emoji: '🧦' },
     { name: 'Personal Theme Song Composer', price: 15000, emoji: '🎵' },
     { name: 'Banana Stand Franchise', price: 75000, emoji: '🍌' },
-    { name: 'Professional High-Fiver', price: 45000, emoji: '🖐️' },
     { name: 'Lifetime Supply of Bubble Wrap', price: 10000, emoji: '💭' },
     { name: 'Personal Cloud Naming Rights', price: 30000, emoji: '☁️' },
     { name: 'Private Concert Hall', price: 2000000, emoji: '🎭' },
@@ -31,7 +39,4 @@
     { name: 'Personal Submarine', price: 900000, emoji: '🌊' },
     { name: 'Lifetime Supply of Ice Cream', price: 80000, emoji: '🍦' },
     { name: 'Professional Joke Writer', price: 60000, emoji: '😂' },
-    { name: 'Personal Rainbow Generator', price: 40000, emoji: '🌈' },
-    { name: 'Luxury Dog Resort', price: 450000, emoji: '🐕' },
-    { name: 'Time Machine Project Funding', price: 5000000, emoji: '⏰' }
   ];
