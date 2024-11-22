@@ -1,90 +1,99 @@
 <template>
-    <div class="w-full max-w-md mt-10 p-4">
-      <form @submit.prevent="calculate">
-        <div class="mb-4">
-          <label for="amount" class="block text-gray-700 dark:text-gray-300 mb-1">
-            {{ selectedAmountLabel }}
-          </label>
-          <div class="flex items-center space-x-2">
-            <input
-              type="number"
-              v-model="amount"
-              id="amount"
-              min="0"
-              step="any"
-              :placeholder="`1 ${selectedCrypto.symbol}`"
-              class="w-full px-4 py-2 border rounded-lg text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 border-indigo-200 dark:border-slate-600 transition"
-            />
-            <div class="relative">
-              <button
-                type="button"
-                @click="isDropdownOpen = !isDropdownOpen"
-                class="px-3 py-2 border border-indigo-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition flex items-center space-x-2 w-32"
-              >
-                <img 
-                  :src="getCryptoIconPath(selectedCrypto.symbol)"
-                  :alt="selectedCrypto.name"
-                  class="w-5 h-5"
-                />
-                <span>{{ selectedCrypto.symbol }}</span>
-              </button>
-              
-              <div
-                v-if="isDropdownOpen"
-                class="absolute right-0 mt-1 w-36 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-indigo-200 dark:border-slate-600 z-10 max-h-60 overflow-y-auto"
-              >
+    <div class="w-full max-w-md mt-4 p-4">
+        <div class="text-center mb-4">
+          <h1 class="text-3xl font-bold text-slate-800 dark:text-white">Why Didn't I HODL?!</h1>
+          <p class="text-lg text-slate-600 dark:text-white/90">How much did you miss out on?</p>
+        </div>
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-indigo-200 dark:border-slate-600">
+          <form @submit.prevent="calculate">
+            <div class="mb-4">
+              <label for="crypto" class="block text-gray-700 dark:text-gray-300 mb-1">{{ selectedCryptoLabel }}</label>
+              <div class="relative">
                 <button
-                  v-for="crypto in cryptocurrencies"
-                  :key="crypto.id"
-                  @click="selectCrypto(crypto)"
-                  class="w-full px-4 py-2 flex items-center space-x-2 hover:bg-indigo-50 dark:hover:bg-slate-700 transition text-slate-800 dark:text-slate-100"
+                  type="button"
+                  @click="isDropdownOpen = !isDropdownOpen"
+                  class="w-full px-3 py-2 border border-indigo-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition flex items-center space-x-2"
                 >
                   <img 
-                    :src="getCryptoIconPath(crypto.symbol)"
-                    :alt="crypto.name"
+                    :src="getCryptoIconPath(selectedCrypto.symbol)"
+                    :alt="selectedCrypto.name"
                     class="w-5 h-5"
                   />
-                  <span>{{ crypto.symbol }}</span>
+                  <span>{{ selectedCrypto.name }}</span>
                 </button>
+                
+                <div
+                  v-if="isDropdownOpen"
+                  class="absolute left-0 right-0 mt-1 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-indigo-200 dark:border-slate-600 z-10 max-h-60 overflow-y-auto"
+                >
+                  <button
+                    v-for="crypto in cryptocurrencies"
+                    :key="crypto.id"
+                    @click="selectCrypto(crypto)"
+                    class="w-full px-4 py-2 flex items-center space-x-2 hover:bg-indigo-50 dark:hover:bg-slate-700 transition text-slate-800 dark:text-slate-100"
+                  >
+                    <img 
+                      :src="getCryptoIconPath(crypto.symbol)"
+                      :alt="crypto.name"
+                      class="w-5 h-5"
+                    />
+                    <span>{{ crypto.name }}</span>
+                  </button>
+                </div>
               </div>
             </div>
+
+            <div class="mb-4">
+              <label for="amount" class="block text-gray-700 dark:text-gray-300 mb-1">
+                {{ selectedAmountLabel }}
+              </label>
+              <input
+                type="number"
+                v-model="amount"
+                id="amount"
+                min="0"
+                step="any"
+                :placeholder="`1 ${selectedCrypto.symbol}`"
+                class="w-full px-4 py-2 border rounded-lg text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 border-indigo-200 dark:border-slate-600 transition"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="date" class="block text-gray-700 dark:text-gray-300 mb-1">
+                {{ selectedDateLabel }}
+              </label>
+              <input
+                type="date"
+                v-model="date"
+                id="date"
+                :max="currentDate"
+                :min="minDate"
+                @input="validateDate"
+                class="w-full px-4 py-2 border rounded-lg text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 border-indigo-200 dark:border-slate-600 transition [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+              />
+            </div>
+            <button
+              type="submit"
+              :disabled="loading"
+              class="bg-indigo-500 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white w-full py-2 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {{ loading ? 'Calculating...' : selectedButtonLabel }}
+            </button>
+          </form>
+      
+          <div v-if="error" class="mt-4 text-rose-500 dark:text-rose-400 text-center">
+            {{ error }}
           </div>
         </div>
-        <div class="mb-4">
-          <label for="date" class="block text-gray-700 dark:text-gray-300 mb-1">
-            {{ selectedDateLabel }}
-          </label>
-          <input
-            type="date"
-            v-model="date"
-            id="date"
-            :max="currentDate"
-            @input="validateDate"
-            class="w-full px-4 py-2 border rounded-lg text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 border-indigo-200 dark:border-slate-600 transition [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
-          />
-        </div>
-        <button
-          type="submit"
-          :disabled="loading"
-          class="bg-indigo-500 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white w-full py-2 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {{ loading ? 'Calculating...' : selectedButtonLabel }}
-        </button>
-      </form>
-  
-      <div v-if="error" class="mt-4 text-rose-500 dark:text-rose-400 text-center">
-        {{ error }}
-      </div>
-      
-      <Results 
-        v-if="result"
-        :result="result" 
-        :equivalentPurchases="calculateEquivalentPurchases(result.currentValue)" 
-        @reloadPurchases="reloadPurchases"
-        @close="result = null"
-      />
+        
+        <Results 
+          v-if="result"
+          :result="result" 
+          :equivalentPurchases="calculateEquivalentPurchases(result.currentValue)" 
+          @reloadPurchases="reloadPurchases"
+          @close="result = null"
+        />
     </div>
-  </template>
+</template>
   
   <script setup lang="ts">
   import { ref } from "vue";
@@ -107,17 +116,28 @@
     { id: 'uniswap', symbol: 'UNI', name: 'Uniswap' },
 
   ];
+
+  const cryptoLabels = [
+    "Currency you regret selling:",
+    "Crypto you wish you never sold:", 
+    "Coin you're still salty about:",
+    "Coin you'll tell your grandkids about:",
+    "Your 'I was early but left early' pick:",
+    "The one that got away:",
+    "Your biggest crypto heartbreak:",
+    "The FOMO that haunts you:",
+    "Your 'I knew it would moon' mistake:"
+  ]
   
   const amountLabels = [
     "Your poor life choices (in coins):",
-    "Enter your missed fortune (in coins):",
-    "Your coulda-woulda-shoulda amount (in coins):",
-    "Number of coins you panic sold (in coins):",
-    "Coins sacrificed to weak hands (in coins):",
-    "Amount you sold 'just to be safe' (in coins):",
-    "Tokens lost to FUD (in coins):",
-    "Your 'crypto is definitely dead' sale (in coins):",
-    "Coins that triggered your stop loss (in coins):",
+    "Your coulda-woulda-shoulda amount:",
+    "Number of coins you panic sold:",
+    "Coins sacrificed to weak hands:",
+    "Amount you sold 'just to be safe':",
+    "Tokens lost to FUD:",
+    "Your 'crypto is definitely dead' sale:",
+    "Coins that triggered your stop loss:",
     "Your 'I'll buy back lower' amount:",
     "Quantity sold during the dip™:",
     "Your 'this is the top' prediction:",
@@ -168,10 +188,12 @@
   const selectedAmountLabel = ref(amountLabels[Math.floor(Math.random() * amountLabels.length)]);
   const selectedDateLabel = ref(dateLabels[Math.floor(Math.random() * dateLabels.length)]);
   const selectedButtonLabel = ref(buttonLabels[Math.floor(Math.random() * buttonLabels.length)]);
+  const selectedCryptoLabel = ref(cryptoLabels[Math.floor(Math.random() * cryptoLabels.length)]);
   
   const isDropdownOpen = ref(false);
   
   const currentDate = ref(new Date().toISOString().split('T')[0]);
+  const minDate = ref(new Date('2010-01-01').toISOString().split('T')[0]);
   
   const fetchCryptoData = async (cryptoId, date) => {
     // Convert crypto IDs to Binance symbols
@@ -267,10 +289,13 @@
   const validateDate = (event) => {
     const selectedDate = new Date(event.target.value);
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset time part for accurate date comparison
+    today.setHours(0, 0, 0, 0);
+    const min = new Date('2010-01-01');
 
     if (selectedDate > today) {
       date.value = currentDate.value;
+    } else if (selectedDate < min) {
+      date.value = minDate.value;
     }
   };
   </script>
