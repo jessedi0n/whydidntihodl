@@ -89,7 +89,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="js">
 import { defineProps, onMounted, ref } from 'vue';
 import { getCryptoIconPath } from '../utils/cryptoIcons';
 
