@@ -86,7 +86,7 @@
     </div>
   </template>
   
-  <script setup>
+  <script setup lang="ts">
   import { ref } from "vue";
   import Results from "./Results.vue";
   import { EQUIVALENT_PURCHASES } from "../utils/equivalentPurchases";

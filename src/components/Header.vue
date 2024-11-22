@@ -5,7 +5,7 @@
   </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // No need for extra setup here, this is just the UI component
 </script>
   
