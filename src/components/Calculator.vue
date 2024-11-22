@@ -54,6 +54,12 @@
                 min="0"
                 step="any"
                 :placeholder="`1 ${selectedCrypto.symbol}`"
+                @keypress="(e) => {
+                  const charCode = (e.which) ? e.which : e.keyCode;
+                  if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+                    e.preventDefault();
+                  }
+                }"
                 class="w-full px-4 py-2 border rounded-lg text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 border-indigo-200 dark:border-slate-600 transition"
               />
             </div>
