@@ -3,7 +3,7 @@
     class="fixed inset-0 bg-slate-900/50 dark:bg-slate-900/70 flex items-center justify-center p-4 animate-backdrop-fade"
   >
     <div 
-      class="bg-white dark:bg-slate-800 rounded-lg max-w-md w-full p-6 relative shadow-xl animate-modal-open max-h-[90vh] flex flex-col"
+      class="bg-white dark:bg-slate-800 rounded-lg max-w-md w-full p-4 relative shadow-xl animate-modal-open max-h-[90vh] flex flex-col"
     >
       <button 
         @click="$emit('close')" 
