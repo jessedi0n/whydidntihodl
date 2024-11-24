@@ -38,26 +38,29 @@ export const calculateEquivalentPurchases = (value) => {
   // Shuffle and limit to 3 items
   selected = selected.sort(() => 0.5 - Math.random()).slice(0, 3);
 
-  // Calculate quantities with more reasonable limits
+  // Calculate quantities with more dramatic scaling
   return selected.map(item => {
     const quantity = Math.floor(value / item.price);
     
-    // Dynamic max quantity based on price ranges
+    // Dynamic max quantity based on price ratio
+    const priceRatio = item.price / value;
     let maxQuantity;
-    if (item.price > value * 0.1) {  // expensive items
-      maxQuantity = Math.min(quantity, 5);  // Cap expensive items at 5
-    } else if (item.price > value * 0.01) {  // medium items
-      maxQuantity = Math.min(quantity, 20);  // Cap medium items at 20
-    } else {  // cheap items
-      maxQuantity = Math.min(quantity, 100);  // Cap cheap items at 100
+    
+    if (priceRatio > 0.1) {
+      maxQuantity = Math.min(quantity, 2);
+    } else if (priceRatio > 0.01) {
+      maxQuantity = Math.min(quantity, 10);
+    } else if (priceRatio > 0.001) {
+      maxQuantity = Math.min(quantity, 100);
+    } else {
+      maxQuantity = Math.min(quantity, 1000);
     }
     
-    // Additional sanity check based on total cost
-    maxQuantity = Math.min(maxQuantity, Math.ceil(value * 0.6 / item.price)); // Max 60% of value
+    maxQuantity = Math.min(maxQuantity, Math.ceil(value * 0.8 / item.price));
     
     return {
       ...item,
-      quantity: Math.max(1, maxQuantity) // Ensure at least 1 item
+      quantity: Math.max(1, maxQuantity)
     };
-  });
+  }).sort((a, b) => b.quantity - a.quantity); // Sort by quantity in descending order
 };

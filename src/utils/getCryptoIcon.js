@@ -1,4 +1,4 @@
-export const getCryptoIconPath = (symbol) => {
+export const getCryptoIcon = (symbol) => {
     try {
       return new URL(
         `../assets/crypto-icons/${symbol.toLowerCase()}.svg`, 

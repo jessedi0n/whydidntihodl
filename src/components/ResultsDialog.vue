@@ -3,7 +3,7 @@
     class="fixed inset-0 bg-slate-900/50 dark:bg-slate-900/70 flex items-center justify-center p-4 animate-backdrop-fade"
   >
     <div 
-      class="bg-white dark:bg-slate-800 rounded-lg max-w-md w-full p-4 relative shadow-xl animate-modal-open max-h-[90vh] flex flex-col"
+      class="bg-white dark:bg-slate-800 rounded-lg max-w-md w-full p-4 relative shadow-xl animate-modal-open max-h-[90vh] flex flex-col border border-indigo-200 dark:border-slate-600"
     >
       <button 
         @click="$emit('close')" 
@@ -21,7 +21,7 @@
           <div class="text-4xl font-bold text-indigo-500 dark:text-indigo-400 my-3 flex items-center justify-center">
             {{ formatQuantity(result.cryptoAmount) }}
             <img 
-              :src="getCryptoIconPath(result.cryptoSymbol)"
+              :src="getCryptoIcon(result.cryptoSymbol)"
               :alt="result.cryptoName"
               class="w-8 h-8 ml-2"
             /> 
@@ -90,8 +90,8 @@
 </template>
 
 <script setup lang="js">
-import { defineProps, onMounted, ref } from 'vue';
-import { getCryptoIconPath } from '../utils/cryptoIcons';
+import { onMounted, ref } from 'vue';
+import { getCryptoIcon } from '../utils/getCryptoIcon';
 
 const props = defineProps({
   result: {
