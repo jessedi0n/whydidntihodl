@@ -7,9 +7,7 @@
     <header class="absolute top-4 right-4" role="banner">
       <DarkModeToggle />
     </header>
-    <main>
-      <Calculator />
-    </main>
+    <Calculator />
     <div 
       id="portal-target" 
       role="presentation"
