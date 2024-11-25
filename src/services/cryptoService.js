@@ -14,11 +14,18 @@ const SYMBOL_MAP = {
   
   export const fetchCryptoData = async (cryptoId, date) => {
     const symbol = SYMBOL_MAP[cryptoId];
+    const EARLIEST_DATE = new Date('2017-08-17');
     
     try {
       // Get timestamp for the selected date (start of day)
       const startTime = new Date(date);
       startTime.setUTCHours(0, 0, 0, 0);
+
+      // Add validation for earliest possible date
+      if (startTime < EARLIEST_DATE) {
+        throw new Error('Data not available before August 17, 2017');
+      }
+
       const timestamp = startTime.getTime();
   
       // Fetch historical price (daily kline/candlestick data)
