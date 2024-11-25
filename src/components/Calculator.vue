@@ -4,7 +4,7 @@
       role="main"
     >
         <div class="text-center mb-4">
-          <h1 class="text-3xl font-bold text-slate-800 dark:text-white">Why Didn't I HODL?!</h1>
+          <h1 class="text-3xl font-bold text-slate-800 dark:text-white">Why Didn't I HODL?! 😭</h1>
           <p class="text-lg text-slate-600 dark:text-white/90">How much did you miss out on?</p>
         </div>
         <div 
