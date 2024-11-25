@@ -86,7 +86,6 @@
                     stroke-width="1.5" 
                     stroke="currentColor" 
                     class="w-5 h-5 text-slate-500 dark:text-slate-400 cursor-pointer"
-                    @click="showInfoTooltip = !showInfoTooltip"
                   >
                     <path 
                       stroke-linecap="round" 
@@ -95,10 +94,7 @@
                     />
                   </svg>
                   <div 
-                    class="absolute bottom-full mb-2 right-0"
-                    :class="{'hidden': !showInfoTooltip && !isGroupHovered}"
-                    @mouseenter="isGroupHovered = true"
-                    @mouseleave="isGroupHovered = false"
+                    class="absolute bottom-full mb-2 right-0 hidden group-hover:block"
                   >
                     <div class="bg-slate-800 text-white text-sm py-1 px-2 rounded shadow-lg border border-indigo-200 dark:border-slate-600 max-w-[400px] min-w-[300px]">
                       Historical cryptocurrency price data is only available starting from {{ EARLIEST_DATE }}. Earlier dates cannot be selected due to Binance API limitations.
