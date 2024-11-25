@@ -1,36 +1,53 @@
 <template>
   <div 
     class="fixed inset-0 bg-slate-900/50 dark:bg-slate-900/70 flex items-center justify-center p-4 animate-backdrop-fade"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="dialog-title"
   >
     <div 
       class="bg-white dark:bg-slate-800 rounded-lg max-w-md w-full p-4 relative shadow-xl animate-modal-open max-h-[90vh] flex flex-col border border-indigo-200 dark:border-slate-600"
+      @keydown.escape="$emit('close')"
     >
       <button 
         @click="$emit('close')" 
         class="absolute top-4 right-4 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 text-2xl hover:bg-indigo-100 dark:hover:bg-slate-800 rounded-full p-2 transition h-10 w-10 flex items-center justify-center border border-slate-200 dark:border-slate-700"
+        aria-label="Close dialog"
       >
-        ✕
+        <span aria-hidden="true">✕</span>
       </button>
       
       <div class="overflow-y-auto flex-1">
         <div class="text-center mb-6">
-          <div class="text-6xl mb-2">{{ result.emoji }}</div>
-          <div class="text-xl font-bold text-slate-800 dark:text-slate-100">
+          <div 
+            class="text-6xl mb-2"
+            role="img"
+            :aria-label="result.emoji"
+          >{{ result.emoji }}</div>
+          <div 
+            id="dialog-title"
+            class="text-xl font-bold text-slate-800 dark:text-slate-100"
+          >
             Your
           </div>
-          <div class="text-4xl font-bold text-indigo-500 dark:text-indigo-400 my-3 flex items-center justify-center">
+          <div 
+            class="text-4xl font-bold text-indigo-500 dark:text-indigo-400 my-3 flex items-center justify-center"
+            aria-label="Cryptocurrency amount"
+          >
             {{ formatQuantity(result.cryptoAmount) }}
             <img 
               :src="getCryptoIcon(result.cryptoSymbol)"
               :alt="result.cryptoName"
               class="w-8 h-8 ml-2"
             /> 
-            <!-- {{ result.cryptoName }} -->
           </div>
           <div class="text-xl font-bold text-slate-800 dark:text-slate-100">
             would be worth
           </div>
-          <div class="text-5xl font-bold text-indigo-500 dark:text-indigo-400 my-3">
+          <div 
+            class="text-5xl font-bold text-indigo-500 dark:text-indigo-400 my-3"
+            aria-label="Current value in USD"
+          >
             ${{ formatCurrency(result.currentValue) }}
           </div>
           <div class="text-xl font-bold text-slate-800 dark:text-slate-100">
@@ -40,36 +57,53 @@
             class="text-lg text-slate-600 dark:text-slate-400 mt-2"
             :class="{ 'animate-fade-in': showSoldText }"
             v-show="showSoldText"
+            aria-live="polite"
           >
-            You sold for ${{ formatCurrency(result.pastValue) }} 😭
+            You sold for ${{ formatCurrency(result.pastValue) }} 
+            <span role="img" aria-label="crying face">😭</span>
           </div>
         </div>
 
         <div 
           :class="{ 'animate-fade-in': showPurchases }"
           v-show="showPurchases"
+          aria-live="polite"
         >
-          <div class="border-t border-slate-200 dark:border-slate-700 my-6"></div>
-
           <div 
-            class="space-y-3 mb-6 text-center"
-          >
-            <div class="flex justify-center items-center mb-2">
+            class="border-t border-slate-200 dark:border-slate-700 my-6"
+            role="separator"
+          ></div>
+
+          <div class="space-y-3 mb-6 text-center">
+            <div 
+              class="flex justify-center items-center mb-2"
+              role="heading"
+              aria-level="2"
+            >
               <span class="text-xl font-bold text-indigo-500 dark:text-indigo-400">Here's what you missed out on:</span>
               <button 
                 @click="$emit('reloadPurchases')" 
                 class="text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 p-1 rounded-full hover:bg-indigo-50 dark:hover:bg-slate-800 transition ml-2"
+                aria-label="Generate new purchase examples"
               >
                 🔄
               </button>
             </div>
-            <div 
-              v-for="purchase in equivalentPurchases" 
-              :key="purchase.name"
-              class="flex items-start text-left justify-start text-slate-800 dark:text-slate-100"
+            <ul 
+              class="space-y-3"
+              role="list"
+              aria-label="Equivalent purchases"
             >
-              
-                <span class="text-2xl mr-2">{{ purchase.emoji }}</span>
+              <li
+                v-for="purchase in equivalentPurchases" 
+                :key="purchase.name"
+                class="flex items-start text-left justify-start text-slate-800 dark:text-slate-100"
+              >
+                <span 
+                  class="text-2xl mr-2"
+                  role="img"
+                  :aria-label="purchase.emoji"
+                >{{ purchase.emoji }}</span>
                 <span>
                   {{ formatQuantity(purchase.quantity) }} 
                   {{ purchase.name }}{{ purchase.quantity > 1 ? 's' : '' }}
@@ -77,12 +111,9 @@
                     (${{ formatCurrency(purchase.price) }} each)
                   </span>
                 </span>
-             
-            </div>
+              </li>
+            </ul>
           </div>
-          <!-- <div v-else class="text-center text-slate-500 dark:text-slate-400">
-            Not enough for any major purchases... yet! 💪
-          </div> -->
         </div>
       </div>
     </div>

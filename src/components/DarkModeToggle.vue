@@ -1,8 +1,11 @@
 <template>
     <button
       @click="toggleDarkMode"
+      @keydown.enter="toggleDarkMode"
       class="hidden sm:block p-2 rounded-lg bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-600 hover:bg-indigo-50 dark:hover:bg-slate-700 transition"
-      aria-label="Toggle dark mode"
+      :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+      :aria-pressed="isDark"
+      role="switch"
     >
       <svg
         v-if="isDark"
@@ -11,6 +14,8 @@
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
+        aria-hidden="true"
+        focusable="false"
       >
         <path
           stroke-linecap="round"
@@ -26,6 +31,8 @@
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
+        aria-hidden="true"
+        focusable="false"
       >
         <path
           stroke-linecap="round"

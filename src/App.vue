@@ -1,9 +1,20 @@
 <template>
-  <div class="min-h-screen bg-indigo-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 flex flex-col items-center relative">
-    <div class="absolute top-4 right-4">
+  <div 
+    class="min-h-screen bg-indigo-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 flex flex-col items-center relative"
+    role="main"
+    aria-label="Cryptocurrency calculator application"
+  >
+    <header class="absolute top-4 right-4" role="banner">
       <DarkModeToggle />
-    </div>
-    <Calculator />
+    </header>
+    <main>
+      <Calculator />
+    </main>
+    <div 
+      id="portal-target" 
+      role="presentation"
+      aria-hidden="true"
+    ></div>
   </div>
 </template>
 
