@@ -116,7 +116,7 @@
                   @change="validateDate"
                   @input="validateDate"
                   :aria-describedby="showError ? 'date-error' : undefined"
-                  class="w-full px-4 py-2 border rounded-lg text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 border-indigo-200 dark:border-slate-600 transition [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+                  class="w-full px-4 py-2 border rounded-lg text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 border-indigo-200 dark:border-slate-600 transition"
                 />
                 <div class="relative ml-2">
                   <button
