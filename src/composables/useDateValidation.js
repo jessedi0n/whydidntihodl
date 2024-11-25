@@ -1,27 +1,40 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 export function useDateValidation() {
-  const currentDate = ref(new Date().toISOString().split('T')[0]);
-  const minDate = ref(new Date('2010-01-01').toISOString().split('T')[0]);
-  const date = ref(null);
+  const date = ref('');
+  const currentDate = computed(() => new Date().toISOString().split('T')[0]);
+  const EARLIEST_DATE = '2017-08-17';
+  const errorMessage = ref('');
+  const showError = ref(false);
 
-  const validateDate = (event) => {
-    const selectedDate = new Date(event.target.value);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const min = new Date('2010-01-01');
+  const validateDate = () => {
+    if (!date.value) return;
+    
+    const selectedDate = new Date(date.value);
+    const minDate = new Date(EARLIEST_DATE);
+    const maxDate = new Date();
 
-    if (selectedDate > today) {
+    // Check if date is before minimum allowed date
+    if (selectedDate < minDate) {
+      date.value = EARLIEST_DATE;
+      errorMessage.value = `Dates before ${EARLIEST_DATE} are not available`;
+      showError.value = true;
+      setTimeout(() => showError.value = false, 3000); // Hide after 3 seconds
+    }
+    // Check if date is after current date
+    else if (selectedDate > maxDate) {
       date.value = currentDate.value;
-    } else if (selectedDate < min) {
-      date.value = minDate.value;
+      errorMessage.value = 'Future dates are not available';
+      showError.value = true;
+      setTimeout(() => showError.value = false, 3000); // Hide after 3 seconds
     }
   };
 
   return {
     currentDate,
-    minDate,
     date,
-    validateDate
+    validateDate,
+    errorMessage,
+    showError,
   };
 }
