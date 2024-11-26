@@ -1,6 +1,6 @@
 # Why Didn't I HODL?! 😭
 
-A whimsical cryptocurrency calculator that shows you how much money you missed out on by selling your crypto too early, complete with fun comparisons to luxury purchases you could have afforded if you had just HODL'd.
+A cryptocurrency calculator that shows you how much money you missed out on by selling your crypto too early, complete with fun comparisons to luxury purchases you could have afforded if you had just HODL'd.
 
 ## Features
 
@@ -12,7 +12,7 @@ A whimsical cryptocurrency calculator that shows you how much money you missed o
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/whydidntihodl.com.git
+git clone https://github.com/jessedi0n/whydidntihodl.com.git
 ```
 2. Install dependencies
 ```bash
