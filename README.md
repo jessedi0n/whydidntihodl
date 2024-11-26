@@ -12,7 +12,7 @@ A cryptocurrency calculator that shows you how much money you missed out on by s
 
 1. Clone the repository
 ```bash
-git clone https://github.com/jessedi0n/whydidntihodl.com.git
+git clone https://github.com/jessedi0n/whydidntihodl.git
 ```
 2. Install dependencies
 ```bash
